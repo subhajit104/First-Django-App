@@ -9,13 +9,13 @@ def index(request):
     context = {
         'latest_question_list': latest_question_list,
     }
-    return render(request,'polls/index.html',context)
+    return render(request,'polls/index1.html',context)
 
 def detail(request, question_id):
     #here all the latest_question_list is going to
     question = get_object_or_404(Question, pk=question_id)
     context =  {'question': question}
-    return render(request, 'polls/detail.html',context)
+    return render(request, 'polls/detail1.html',context)
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -23,7 +23,7 @@ def vote(request, question_id):
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
-        return render(request, 'polls/detail.html', {
+        return render(request, 'polls/detail1.html', {
             'question': question,
             'error_message': "You didn't select a choice.",
         })

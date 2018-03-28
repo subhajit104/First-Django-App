@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+body {
+  background-color: #e3ecf2;
+}
+input[type=submit] {
+    padding:5px 15px;
+    background:#ccc;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+}
+</style>
+<body>
+
+
+<div class="container">
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-success">
+      <h2>{{ question.question_text }}</h2>
+    </li>
+  </ul>
+  <div class="list-group">
+    {% if error_message %}<p class="list-group-item list-group-item-success">
+      <strong>{{ error_message }}</strong>
+    </p>{% endif %}
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <label class="list-group-item list-group-item-success" for="choice{{ forloop.counter }}">
+          <input class = "button1" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+          {{ choice.choice_text }}</label><br />
+    {% endfor %}
+    {% if question.choice_set.all %}
+    <br>
+    <input type="submit" value="Vote" />
+    {% else %}
+    <p class="list-group-item list-group-item-success" >you don't set options for this questions</p>
+    <a href="/polls\">BACK</a>
+    {% endif %}
+    </form>
+
+  </div>
+</div>
+
+</body>
+</html>
